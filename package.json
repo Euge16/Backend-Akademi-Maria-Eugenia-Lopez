@@ -1,0 +1,32 @@
+{
+  "name": "backend-akademi-maria-eugenia-lopez",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Euge16/Backend-Akademi-Maria-Eugenia-Lopez.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Euge16/Backend-Akademi-Maria-Eugenia-Lopez/issues"
+  },
+  "homepage": "https://github.com/Euge16/Backend-Akademi-Maria-Eugenia-Lopez#readme",
+  "dependencies": {
+    "bcryptjs": "^3.0.2",
+    "dotenv": "^16.5.0",
+    "express": "^5.1.0",
+    "express-validator": "^7.2.1",
+    "jsonwebtoken": "^9.0.2",
+    "mongodb": "^6.16.0",
+    "mongoose": "^8.14.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  }
+}
