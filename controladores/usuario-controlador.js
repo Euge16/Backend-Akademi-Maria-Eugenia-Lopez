@@ -1,7 +1,8 @@
 const { validationResult } = require('express-validator');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const Usuario = require('../models/usuario');
+const Usuario = require('../modelos/usuario');
+const nodemailer = require("nodemailer");
 
 
 
@@ -161,10 +162,81 @@ const editarUsuario = async (req, res, next) => {
   }
 };
 
+const solicitarRecuperacionPassword= async (req, res) => {
+  const { email } = req.body;
 
+  try {
+    const usuario = await Usuario.findOne({ email });
+    if (!usuario) {
+      return res.status(404).json({ mensaje: 'Usuario no encontrado.' });
+    }
+
+    const token = jwt.sign({ id: usuario.id }, process.env.JWT_KEY, { expiresIn: '1h' });
+
+
+    usuario.tokenRecuperacion = token;
+    usuario.expiracionTokenRecuperacion = Date.now() + 3600000; // 1 hora
+    await usuario.save();
+
+    
+    const transporte = nodemailer.createTransport({
+      service: 'gmail',
+      auth: {
+        user: process.env.EMAIL_USUARIO,
+        pass: process.env.EMAIL_PASSWORD
+      }
+    });
+
+    const emailOpciones = {
+      from: process.env.EMAIL_USUARIO,
+      to: email,
+      subject: 'Recuperación de contraseña',
+      text: `Haz clic en este enlace para restablecer tu contraseña: http://localhost:5000/api/usuarios/restablecer-password/${token}`
+    };
+
+    await transporte.sendMail(emailOpciones);
+
+    res.json({ mensaje: 'Correo enviado con instrucciones.' });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ mensaje: 'Error al procesar la solicitud.' });
+  }
+};
+
+const restablecerPassword = async (req, res) => {
+  const { token } = req.params;
+  const { nuevaPassword } = req.body;
+
+  try {
+    const usuario = await Usuario.findOne({
+      tokenRecuperacion: token,
+      expiracionTokenRecuperacion: { $gt: Date.now() } // Token todavia valido
+    });
+
+    if (!usuario) {
+      return res.status(400).json({ mensaje: 'Token inválido o expirado.' });
+    }
+
+    
+    const passwordHasheada = await bcrypt.hash(nuevaPassword, 12);
+
+    // Actualizar datos del usuario
+    usuario.password = passwordHasheada;
+    usuario.tokenRecuperacion = undefined;
+    usuario.expiracionTokenRecuperacion = undefined;
+    await usuario.save();
+
+    res.json({ mensaje: 'Contraseña actualizada correctamente.' });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ mensaje: 'Error al actualizar la contraseña.' });
+  }
+};
 
 exports.getUsuarios = getUsuarios;
 exports.signup = signup;
 exports.login = login;
 exports.eliminarUsuario = eliminarUsuario;
 exports.editarUsuario = editarUsuario;
+exports.solicitarRecuperacionPassword = solicitarRecuperacionPassword;
+exports.restablecerPassword = restablecerPassword;
