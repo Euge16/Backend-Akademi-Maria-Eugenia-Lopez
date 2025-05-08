@@ -17,7 +17,7 @@ const getPacientes = async (req, res, next) => {
 };
 
 
-const getPacienteById = async (req, res, next) => {
+const getPacientePorId = async (req, res, next) => {
     const { id } = req.params;
 
     try {
@@ -92,24 +92,6 @@ const actualizarPaciente = async (req, res, next) => {
 };
 
 
-/* const eliminarPaciente = async (req, res, next) => {
-    const { id } = req.params;
-
-    try {
-        const paciente = await Paciente.findById(id);
-        if (!paciente) {
-            return res.status(404).json({ message: 'Paciente no encontrado.' });
-        }
-
-        paciente.activo = false;
-        await paciente.save();
-
-        res.json({ message: 'Paciente eliminado.' });
-    } catch (err) {
-        res.status(500).json({ message: 'Error al eliminar el paciente.' });
-    }
-}; */
-
 const eliminarPaciente = async (req, res, next) => {
     const { id } = req.params;
 
@@ -131,7 +113,7 @@ const eliminarPaciente = async (req, res, next) => {
 
 
 exports.getPacientes = getPacientes;
-exports.getPacienteById = getPacienteById;
+exports.getPacientePorId = getPacientePorId;
 exports.crearPaciente = crearPaciente;
 exports.actualizarPaciente = actualizarPaciente;
 exports.eliminarPaciente = eliminarPaciente;

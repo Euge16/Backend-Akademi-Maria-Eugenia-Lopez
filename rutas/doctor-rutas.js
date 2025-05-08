@@ -1,15 +1,15 @@
 const express = require('express');
 const { check } = require('express-validator');
 const router = express.Router();
-const pacienteControlador = require('../controladores/paciente-controlador');
+const doctorControlador = require('../controladores/doctor-controlador');
 
 const autenticacion = require('../interceptor/autenticacion');
 const verificarRol = require('../interceptor/verificar-rol');
 
 router.use(autenticacion);
 
-router.get('/', verificarRol(['admin', 'recepcion']), pacienteControlador.getPacientes);
-router.get('/:id', verificarRol(['admin', 'recepcion']), pacienteControlador.getPacientePorId);
+router.get('/', verificarRol(['admin', 'recepcion']), doctorControlador.getDoctoresActivos);
+router.get('/:id', verificarRol(['admin', 'recepcion']), doctorControlador.getDoctorPorId);
 
 router.post(
     '/',
@@ -20,16 +20,17 @@ router.post(
         check('dni')
             .not()
             .isEmpty(),
-        check('coberturaMedica')
+        check('especialidad')
             .not()
             .isEmpty(),
         check('email')
-            .normalizeEmail({ gmail_remove_dots: false }) // Test@test.com => test@test.com
-            .isEmail(),
+            .normalizeEmail({ gmail_remove_dots: false }) 
+            .isEmail()
     ],
     verificarRol(['admin', 'recepcion']), 
-    pacienteControlador.crearPaciente
+    doctorControlador.crearDoctor
 );
+
 router.patch(
     '/:id',
     [
@@ -39,16 +40,21 @@ router.patch(
         check('dni')
             .not()
             .isEmpty(),
-        check('coberturaMedica')
+        check('especialidad')
             .not()
             .isEmpty(),
         check('email')
-            .normalizeEmail({ gmail_remove_dots: false }) // Test@test.com => test@test.com
+            .normalizeEmail({ gmail_remove_dots: false }) 
             .isEmail(),
+        check('activo')
+            .optional()
+            .isBoolean()
     ],
     verificarRol(['admin', 'recepcion']), 
-    pacienteControlador.actualizarPaciente
+    doctorControlador.actualizarDoctor
 );
-router.delete('/:id', verificarRol(['admin', 'recepcion']), pacienteControlador.eliminarPaciente);
 
 module.exports = router;
+
+
+
