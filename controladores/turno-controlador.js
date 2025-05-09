@@ -1,6 +1,8 @@
+require('dotenv').config();
 const Turno = require('../modelos/turno');
 const Paciente = require('../modelos/paciente');
 const Doctor = require('../modelos/doctor');
+const nodemailer = require('nodemailer');
 
 
 const getTurnos = async (req, res, next) => {
@@ -87,6 +89,8 @@ const crearTurno = async (req, res, next) => {
 
         await nuevoTurno.save();
 
+        await enviarRecordatorioTurno(paciente, doctor, fechaHora);
+
         res.status(201).json({
             message: 'Turno creado correctamente.',
             turno: nuevoTurno
@@ -124,6 +128,33 @@ const actualizarEstadoTurno = async (req, res, next) => {
         res.status(500).json({ message: 'Error al actualizar el estado del turno.' });
     }
 };
+
+
+const enviarRecordatorioTurno = async (paciente, doctor, fechaHora) => {
+    try {
+        const transporte = nodemailer.createTransport({
+            service: 'gmail',
+            auth: {
+                user: process.env.EMAIL_USUARIO,
+                pass: process.env.EMAIL_PASSWORD
+            }
+        });
+
+        const emailOpciones = {
+            from: process.env.EMAIL_USUARIO,
+            to: paciente.email,
+            subject: 'Recordatorio de su turno médico',
+            text: `Hola ${paciente.nombre},\n\nEste es un recordatorio de su turno con Dr. ${doctor.nombre} el día ${new Date(fechaHora).toLocaleString()}.En caso de cancelación comunicarse 24hs antes.\n\nAtentamente,\nClínica Vortex`
+        };
+
+        await transporte.sendMail(emailOpciones);
+        console.log(`Recordatorio enviado a ${paciente.email}`);
+    } catch (err) {
+        console.error('Error al enviar el recordatorio: ', err.message);
+    }
+};
+
+
 
 exports.getTurnos = getTurnos;
 exports.getTurnoPorId = getTurnoPorId;

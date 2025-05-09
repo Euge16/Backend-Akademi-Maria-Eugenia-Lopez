@@ -166,7 +166,7 @@ const editarUsuario = async (req, res, next) => {
   }
 };
 
-const solicitarRecuperacionPassword= async (req, res) => {
+const solicitarRecuperacionPassword= async (req, res, next) => {
   const { email } = req.body;
 
   try {
@@ -207,7 +207,7 @@ const solicitarRecuperacionPassword= async (req, res) => {
   }
 };
 
-const restablecerPassword = async (req, res) => {
+const restablecerPassword = async (req, res, next) => {
   const { token } = req.params;
   const { nuevaPassword } = req.body;
 
