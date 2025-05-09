@@ -73,7 +73,7 @@ const crearDoctor = async (req, res, next) => {
 
 const actualizarDoctor = async (req, res, next) => {
     const { id } = req.params;
-    const { nombre, dni, especialidad, email, activo } = req.body;
+    const { nombre, dni, especialidad, email } = req.body;
 
     try {
         const doctor = await Doctor.findById(id);
@@ -85,10 +85,6 @@ const actualizarDoctor = async (req, res, next) => {
         doctor.dni = dni || doctor.dni;
         doctor.especialidad = especialidad || doctor.especialidad;
         doctor.email = email || doctor.email;
-
-        if (typeof activo === 'boolean') {
-            doctor.activo = activo;
-        }
         
         await doctor.save();
 
@@ -101,8 +97,49 @@ const actualizarDoctor = async (req, res, next) => {
     }
 };
 
+const inhabilitarDoctor = async (req, res, next) => {
+    const { id } = req.params;
+    try {
+        const doctor = await Doctor.findById(id);
+        if (!doctor) {
+            return res.status(404).json({ message: 'Doctor no encontrado.' });
+        }
+
+        doctor.activo = false;
+        await doctor.save();
+
+        res.json({
+            message: 'Doctor inhabilitado correctamente.',
+            doctor
+        });
+    } catch (err) {
+        res.status(500).json({ message: 'Error al inhabilirar el doctor.' });
+    }
+}
+
+const habilitarDoctor = async (req, res, next) => {
+    const { id } = req.params;
+    try {
+        const doctor = await Doctor.findById(id);
+        if (!doctor) {
+            return res.status(404).json({ message: 'Doctor no encontrado.' });
+        }
+
+        doctor.activo = true;
+        await doctor.save();
+
+        res.json({
+            message: 'Doctor habilitado correctamente.',
+            doctor
+        });
+    } catch (err) {
+        res.status(500).json({ message: 'Error al inhabilirar el doctor.' });
+    }
+}
 
 exports.getDoctoresActivos = getDoctoresActivos;
 exports.getDoctorPorId = getDoctorPorId;
 exports.crearDoctor = crearDoctor;
 exports.actualizarDoctor = actualizarDoctor;
+exports.inhabilitarDoctor = inhabilitarDoctor;
+exports.habilitarDoctor = habilitarDoctor;
