@@ -1,15 +1,27 @@
 const Doctor = require('../modelos/doctor');
 
 const getDoctoresActivos = async (req, res, next) => {
-    const { especialidad } = req.query;
+    const { pagina, limite, especialidad } = req.query;
+    const paginaInt = parseInt(pagina);
+    const limiteInt = parseInt(limite);
     const filtro = { 
         especialidad: new RegExp(especialidad, 'i'),
         activo: true 
     };
 
     try {
-        const doctores = await Doctor.find(filtro);
-        res.json({ doctores });
+        const doctores = await Doctor.find(filtro)
+            .skip((paginaInt - 1) * limiteInt)
+            .limit(limiteInt);
+
+        const total = await Doctor.countDocuments();
+
+        res.json({
+            paginaActual: paginaInt,
+            totalPaginas: Math.ceil(total / limiteInt),
+            totalRegistros: total,
+            doctores 
+        });
     } catch (err) {
         res.status(500).json({ message: 'Error al obtener doctores.' });
     }

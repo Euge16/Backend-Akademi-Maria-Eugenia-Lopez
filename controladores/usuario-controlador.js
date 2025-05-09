@@ -7,9 +7,21 @@ const nodemailer = require("nodemailer");
 
 
 const getUsuarios = async (req, res, next) => {
+  const { pagina , limite } = req.query;
+  const paginaInt = parseInt(pagina);
+  const limiteInt = parseInt(limite);
   try {
-    const usuarios = await Usuario.find({}, '-password');
-    res.json({ usuarios: usuarios.map(u => u.toObject({ getters: true, versionKey: false })) });
+    const usuarios = await Usuario.find({}, '-password')
+      .skip((paginaInt - 1) * limiteInt)
+      .limit(limiteInt);
+
+    const total = await Usuario.countDocuments();
+    res.json({
+      paginaActual: paginaInt,
+      totalPaginas: Math.ceil(total / limiteInt),
+      totalRegistros: total,
+      usuarios: usuarios.map(u => u.toObject({ getters: true, versionKey: false })) 
+    });
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: 'Error al obtener los usuarios. Intente más tarde.' });
@@ -32,7 +44,6 @@ const signup = async (req, res, next) => {
       return res.status(422).json({ message: 'El usuario ya existe. Por favor inicie sesión.' });
     }
 
-
     const hashedPassword = await bcrypt.hash(password, 12);
 
     const nuevoUsuario = new Usuario({
@@ -44,18 +55,11 @@ const signup = async (req, res, next) => {
 
     await nuevoUsuario.save();
 
-    const token = jwt.sign(
-      { usuarioId: nuevoUsuario.id, email: nuevoUsuario.email, rol: nuevoUsuario.rol},
-      process.env.JWT_KEY,
-      { expiresIn: '1h' }
-    );
-
     res.status(201).json({
       usuarioId: nuevoUsuario.id,
       nombre: nuevoUsuario.nombre,
       email: nuevoUsuario.email,
-      rol: nuevoUsuario.rol,
-      token: token
+      rol: nuevoUsuario.rol
     });
   } catch (err) {
     console.error(err);
@@ -82,7 +86,7 @@ const login = async (req, res, next) => {
     const token = jwt.sign(
       { usuarioId: usuario.id, email: usuario.email, rol: usuario.rol },
       process.env.JWT_KEY,
-      { expiresIn: '1h' }
+      { expiresIn: '30d' }
     );
 
     res.json({
