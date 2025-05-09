@@ -4,7 +4,9 @@ const Doctor = require('../modelos/doctor');
 
 
 const getTurnos = async (req, res, next) => {
-    const { pacienteId, doctorId } = req.query;
+    const { pagina, limite, pacienteId, doctorId } = req.query;
+    const paginaInt = parseInt(pagina);
+    const limiteInt = parseInt(limite);
 
     const filtro = {};
     if (pacienteId) filtro.pacienteId = pacienteId;
@@ -12,10 +14,18 @@ const getTurnos = async (req, res, next) => {
 
     try {
         const turnos = await Turno.find(filtro)
-            .populate('pacienteId', 'nombre dni coberturaMedica email')
-            .populate('doctorId', 'nombre especialidad email activo');
+            .populate('pacienteId', 'nombre dni')
+            .populate('doctorId', 'nombre especialidad activo')
+            .skip((paginaInt - 1) * limiteInt)
+            .limit(limiteInt);
 
-        res.json({ turnos });
+        const total = await Turno.countDocuments();
+        res.json({
+            paginaActual: paginaInt,
+            totalPaginas: Math.ceil(total / limiteInt),
+            totalRegistros: total,
+            turnos 
+        });
     } catch (err) {
         console.error(err);
         res.status(500).json({ message: 'Error al obtener los turnos.' });
@@ -28,8 +38,8 @@ const getTurnoPorId = async (req, res, next) => {
 
     try {
         const turno = await Turno.findById(id)
-            .populate('pacienteId', 'nombre dni coberturaMedica email')
-            .populate('doctorId', 'nombre especialidad email activo');
+            .populate('pacienteId', 'nombre dni')
+            .populate('doctorId', 'nombre especialidad activo');
 
         if (!turno) {
             return res.status(404).json({ message: 'Turno no encontrado.' });

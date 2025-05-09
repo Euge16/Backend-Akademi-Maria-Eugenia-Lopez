@@ -1,7 +1,9 @@
 const Paciente = require('../modelos/paciente');
 
 const getPacientes = async (req, res, next) => {
-    const { nombre, dni, cobertura } = req.query;
+    const { pagina, limite, nombre, dni, cobertura } = req.query;
+    const paginaInt = parseInt(pagina);
+    const limiteInt = parseInt(limite);
     const filtro = {};
 
     if (nombre) filtro.nombre = new RegExp(nombre, 'i');
@@ -9,8 +11,18 @@ const getPacientes = async (req, res, next) => {
     if (cobertura) filtro.coberturaMedica = new RegExp(cobertura, 'i');
 
     try {
-        const pacientes = await Paciente.find(filtro);
-        res.json({ pacientes });
+        const pacientes = await Paciente.find(filtro)
+            .skip((paginaInt - 1) * limiteInt)
+            .limit(limiteInt);
+
+        const total = await Paciente.countDocuments();
+        res.json({ 
+            paginaActual: paginaInt,
+            totalPaginas: Math.ceil(total / limiteInt),
+            totalRegistros: total,
+            pacientes 
+        });
+
     } catch (err) {
         res.status(500).json({ message: 'Error al obtener pacientes.' });
     }
