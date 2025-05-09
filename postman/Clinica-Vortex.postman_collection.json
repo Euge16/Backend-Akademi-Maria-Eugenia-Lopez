@@ -1,0 +1,1126 @@
+{
+	"info": {
+		"_postman_id": "89bc0010-fa7d-4e11-bd27-98d2a15f2788",
+		"name": "Clinica-Vortex",
+		"description": "# 🚀 Get started here\n\nThis template guides you through CRUD operations (GET, POST, PUT, DELETE), variables, and tests.\n\n## 🔖 **How to use this template**\n\n#### **Step 1: Send requests**\n\nRESTful APIs allow you to perform CRUD operations using the POST, GET, PUT, and DELETE HTTP methods.\n\nThis collection contains each of these [request](https://learning.postman.com/docs/sending-requests/requests/) types. Open each request and click \"Send\" to see what happens.\n\n#### **Step 2: View responses**\n\nObserve the response tab for status code (200 OK), response time, and size.\n\n#### **Step 3: Send new Body data**\n\nUpdate or add new data in \"Body\" in the POST request. Typically, Body data is also used in PUT request.\n\n```\n{\n    \"name\": \"Add your name in the body\"\n}\n\n ```\n\n#### **Step 4: Update the variable**\n\nVariables enable you to store and reuse values in Postman. We have created a [variable](https://learning.postman.com/docs/sending-requests/variables/) called `base_url` with the sample request [https://postman-api-learner.glitch.me](https://postman-api-learner.glitch.me). Replace it with your API endpoint to customize this collection.\n\n#### **Step 5: Add tests in the \"Scripts\" tab**\n\nAdding tests to your requests can help you confirm that your API is working as expected. You can write test scripts in JavaScript and view the output in the \"Test Results\" tab.\n\n<img src=\"https://content.pstmn.io/fa30ea0a-373d-4545-a668-e7b283cca343/aW1hZ2UucG5n\" alt=\"\" height=\"1530\" width=\"2162\">\n\n## 💪 Pro tips\n\n- Use folders to group related requests and organize the collection.\n    \n- Add more [scripts](https://learning.postman.com/docs/writing-scripts/intro-to-scripts/) to verify if the API works as expected and execute workflows.\n    \n\n## 💡Related templates\n\n[API testing basics](https://go.postman.co/redirect/workspace?type=personal&collectionTemplateId=e9a37a28-055b-49cd-8c7e-97494a21eb54&sourceTemplateId=ddb19591-3097-41cf-82af-c84273e56719)  \n[API documentation](https://go.postman.co/redirect/workspace?type=personal&collectionTemplateId=e9c28f47-1253-44af-a2f3-20dce4da1f18&sourceTemplateId=ddb19591-3097-41cf-82af-c84273e56719)  \n[Authorization methods](https://go.postman.co/redirect/workspace?type=personal&collectionTemplateId=31a9a6ed-4cdf-4ced-984c-d12c9aec1c27&sourceTemplateId=ddb19591-3097-41cf-82af-c84273e56719)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "44120300",
+		"_collection_link": "https://eugenia-1965398.postman.co/workspace/Eugenia's-Workspace~abba98ab-04e6-4ebe-89b9-e15cdb259988/collection/44120300-89bc0010-fa7d-4e11-bd27-98d2a15f2788?action=share&source=collection_link&creator=44120300"
+	},
+	"item": [
+		{
+			"name": "usuarios/signup",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Successful POST request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+							"});",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"nombre\": \"Maria Eugenia Lopez\",\n  \"email\": \"lop.mariaeugenia@gmail.com\",\n  \"password\": \"123456\",\n  \"rol\": \"admin\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/usuarios/signup",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"usuarios",
+						"signup"
+					]
+				},
+				"description": "This is a POST request, submitting data to an API via the request body. This request submits JSON data, and the data is reflected in the response.\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code."
+			},
+			"response": []
+		},
+		{
+			"name": "usuarios/login",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"email\": \"lop.mariaeugenia@gmail.com\",\r\n  \"password\": \"123456\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/usuarios/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"usuarios",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "recuperar-password",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"email\": \"@gmail.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/usuarios/recuperar-password",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"usuarios",
+						"recuperar-password"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "restablecer-password",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"nuevaPassword\": \"eugenia\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/usuarios/restablecer-password/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4MWEyOGRiZTAxM2Q1OGQ5MDY4ZjgxYSIsImlhdCI6MTc0NjYyNTkwNCwiZXhwIjoxNzQ2NjI5NTA0fQ.n_IzO1BAu6q5P1SC1WJfnDMIKrxuWxPlpy9ANOPh_MM",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"usuarios",
+						"restablecer-password",
+						"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4MWEyOGRiZTAxM2Q1OGQ5MDY4ZjgxYSIsImlhdCI6MTc0NjYyNTkwNCwiZXhwIjoxNzQ2NjI5NTA0fQ.n_IzO1BAu6q5P1SC1WJfnDMIKrxuWxPlpy9ANOPh_MM"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "usuarios?pagina=2&limite=2",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvSWQiOiI2ODFhMjhkYmUwMTNkNThkOTA2OGY4MWEiLCJlbWFpbCI6ImxvcC5tYXJpYWV1Z2VuaWFAZ21haWwuY29tIiwicm9sIjoiYWRtaW4iLCJpYXQiOjE3NDY2MjYwNzcsImV4cCI6MTc0NjYyOTY3N30.49zY2kCGWG4X2MGHeRvy2GFcA_xhbNUfuQPaqnGUYvQ",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/api/usuarios",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"usuarios"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "usuarios/:id",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvSWQiOiI2ODFkZWYyOGIwNmI2YjMyNDRmMjI0ZjQiLCJlbWFpbCI6ImxvcC5tYXJpYWV1Z2VuaWFAZ21haWwuY29tIiwicm9sIjoiYWRtaW4iLCJpYXQiOjE3NDY3OTIzNTIsImV4cCI6MTc0OTM4NDM1Mn0.bjDCFWhQn_1uYvOPPafyOOU75MfEt0Vu_tPzy18c58w",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"nombre\": \"Eugenia Lopez\",\r\n  \"email\": \"lop.mariaeugenia@gmail.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/usuarios/681a28dbe013d58d9068f81a",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"usuarios",
+						"681a28dbe013d58d9068f81a"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "usuarios/:id",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvSWQiOiI2ODFkZWYyOGIwNmI2YjMyNDRmMjI0ZjQiLCJlbWFpbCI6ImxvcC5tYXJpYWV1Z2VuaWFAZ21haWwuY29tIiwicm9sIjoiYWRtaW4iLCJpYXQiOjE3NDY3OTIzNTIsImV4cCI6MTc0OTM4NDM1Mn0.bjDCFWhQn_1uYvOPPafyOOU75MfEt0Vu_tPzy18c58w",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/api/usuarios/681a52fdb9d2509fe5d7fdef",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"usuarios",
+						"681a52fdb9d2509fe5d7fdef"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "pacientes",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvSWQiOiI2ODFhMjhkYmUwMTNkNThkOTA2OGY4MWEiLCJlbWFpbCI6ImxvcC5tYXJpYWV1Z2VuaWFAZ21haWwuY29tIiwicm9sIjoiYWRtaW4iLCJpYXQiOjE3NDY3MjQ4NDIsImV4cCI6MTc0NjcyODQ0Mn0.CIun211ifUaYkYHZ8YwTATwNPO09az80sa0OkD84wB8",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"nombre\": \"Jose Perez\",\r\n  \"dni\": \"12345678\",\r\n  \"coberturaMedica\": \"OSDE\",\r\n  \"email\": \"jose@example.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/pacientes",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"pacientes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "pacientes?pagina=2&limite=2",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvSWQiOiI2ODFkZWYyOGIwNmI2YjMyNDRmMjI0ZjQiLCJlbWFpbCI6ImxvcC5tYXJpYWV1Z2VuaWFAZ21haWwuY29tIiwicm9sIjoiYWRtaW4iLCJpYXQiOjE3NDY3OTIzNTIsImV4cCI6MTc0OTM4NDM1Mn0.bjDCFWhQn_1uYvOPPafyOOU75MfEt0Vu_tPzy18c58w",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/pacientes?pagina=2&limite=2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"pacientes"
+					],
+					"query": [
+						{
+							"key": "pagina",
+							"value": "2"
+						},
+						{
+							"key": "limite",
+							"value": "2"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "pacientes/:id",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvSWQiOiI2ODFkZWYyOGIwNmI2YjMyNDRmMjI0ZjQiLCJlbWFpbCI6ImxvcC5tYXJpYWV1Z2VuaWFAZ21haWwuY29tIiwicm9sIjoiYWRtaW4iLCJpYXQiOjE3NDY3OTIzNTIsImV4cCI6MTc0OTM4NDM1Mn0.bjDCFWhQn_1uYvOPPafyOOU75MfEt0Vu_tPzy18c58w",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/api/pacientes/681dfd4d2c73c2650b288966",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"pacientes",
+						"681dfd4d2c73c2650b288966"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "pacientes?pagina=1&limite=3&nombre=jos",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvSWQiOiI2ODFkZWYyOGIwNmI2YjMyNDRmMjI0ZjQiLCJlbWFpbCI6ImxvcC5tYXJpYWV1Z2VuaWFAZ21haWwuY29tIiwicm9sIjoiYWRtaW4iLCJpYXQiOjE3NDY3OTIzNTIsImV4cCI6MTc0OTM4NDM1Mn0.bjDCFWhQn_1uYvOPPafyOOU75MfEt0Vu_tPzy18c58w",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/api/pacientes?pagina=1&limite=3&nombre=lu",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"pacientes"
+					],
+					"query": [
+						{
+							"key": "pagina",
+							"value": "1"
+						},
+						{
+							"key": "limite",
+							"value": "3"
+						},
+						{
+							"key": "nombre",
+							"value": "lu"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "pacientes?dni=12345678",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvSWQiOiI2ODFkZWYyOGIwNmI2YjMyNDRmMjI0ZjQiLCJlbWFpbCI6ImxvcC5tYXJpYWV1Z2VuaWFAZ21haWwuY29tIiwicm9sIjoiYWRtaW4iLCJpYXQiOjE3NDY3OTIzNTIsImV4cCI6MTc0OTM4NDM1Mn0.bjDCFWhQn_1uYvOPPafyOOU75MfEt0Vu_tPzy18c58w",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/api/pacientes?pagina=1&limite=3&dni=12345678",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"pacientes"
+					],
+					"query": [
+						{
+							"key": "pagina",
+							"value": "1"
+						},
+						{
+							"key": "limite",
+							"value": "3"
+						},
+						{
+							"key": "dni",
+							"value": "12345678"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "pacientes?pagina=1&limite=3&cobertura=osde",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvSWQiOiI2ODFkZWYyOGIwNmI2YjMyNDRmMjI0ZjQiLCJlbWFpbCI6ImxvcC5tYXJpYWV1Z2VuaWFAZ21haWwuY29tIiwicm9sIjoiYWRtaW4iLCJpYXQiOjE3NDY3OTIzNTIsImV4cCI6MTc0OTM4NDM1Mn0.bjDCFWhQn_1uYvOPPafyOOU75MfEt0Vu_tPzy18c58w",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/api/pacientes?pagina=1&limite=3&cobertura=OSDE",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"pacientes"
+					],
+					"query": [
+						{
+							"key": "pagina",
+							"value": "1"
+						},
+						{
+							"key": "limite",
+							"value": "3"
+						},
+						{
+							"key": "cobertura",
+							"value": "OSDE"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "pacientes?pagina=1&limite=3&cobertura=OSDE&nombre=jo",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvSWQiOiI2ODFkZWYyOGIwNmI2YjMyNDRmMjI0ZjQiLCJlbWFpbCI6ImxvcC5tYXJpYWV1Z2VuaWFAZ21haWwuY29tIiwicm9sIjoiYWRtaW4iLCJpYXQiOjE3NDY3OTIzNTIsImV4cCI6MTc0OTM4NDM1Mn0.bjDCFWhQn_1uYvOPPafyOOU75MfEt0Vu_tPzy18c58w",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/api/pacientes?pagina=1&limite=3&cobertura=OSDE&nombre=j",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"pacientes"
+					],
+					"query": [
+						{
+							"key": "pagina",
+							"value": "1"
+						},
+						{
+							"key": "limite",
+							"value": "3"
+						},
+						{
+							"key": "cobertura",
+							"value": "OSDE"
+						},
+						{
+							"key": "nombre",
+							"value": "j"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "pacientes/:id",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvSWQiOiI2ODFkZWYyOGIwNmI2YjMyNDRmMjI0ZjQiLCJlbWFpbCI6ImxvcC5tYXJpYWV1Z2VuaWFAZ21haWwuY29tIiwicm9sIjoiYWRtaW4iLCJpYXQiOjE3NDY3OTIzNTIsImV4cCI6MTc0OTM4NDM1Mn0.bjDCFWhQn_1uYvOPPafyOOU75MfEt0Vu_tPzy18c58w",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"nombre\": \"José Pérez\",\r\n  \"dni\": \"12345678\",\r\n  \"coberturaMedica\": \"OSDE\",\r\n  \"email\": \"jose@test.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/pacientes/681dfd142c73c2650b288963",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"pacientes",
+						"681dfd142c73c2650b288963"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "pacientes/:id",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvSWQiOiI2ODFkZWYyOGIwNmI2YjMyNDRmMjI0ZjQiLCJlbWFpbCI6ImxvcC5tYXJpYWV1Z2VuaWFAZ21haWwuY29tIiwicm9sIjoiYWRtaW4iLCJpYXQiOjE3NDY3OTIzNTIsImV4cCI6MTc0OTM4NDM1Mn0.bjDCFWhQn_1uYvOPPafyOOU75MfEt0Vu_tPzy18c58w",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/api/pacientes/681b9f5d233827678af310b0",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"pacientes",
+						"681b9f5d233827678af310b0"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "doctores",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvSWQiOiI2ODFkZWYyOGIwNmI2YjMyNDRmMjI0ZjQiLCJlbWFpbCI6ImxvcC5tYXJpYWV1Z2VuaWFAZ21haWwuY29tIiwicm9sIjoiYWRtaW4iLCJpYXQiOjE3NDY3OTIzNTIsImV4cCI6MTc0OTM4NDM1Mn0.bjDCFWhQn_1uYvOPPafyOOU75MfEt0Vu_tPzy18c58w",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"nombre\": \"Marta Avalos\",\r\n  \"dni\": \"11555777\",\r\n  \"especialidad\": \"Kinesiologia\",\r\n  \"email\": \"martaA@test.com\" \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/doctores",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"doctores"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "doctores/:id",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvSWQiOiI2ODFkZWYyOGIwNmI2YjMyNDRmMjI0ZjQiLCJlbWFpbCI6ImxvcC5tYXJpYWV1Z2VuaWFAZ21haWwuY29tIiwicm9sIjoiYWRtaW4iLCJpYXQiOjE3NDY3OTIzNTIsImV4cCI6MTc0OTM4NDM1Mn0.bjDCFWhQn_1uYvOPPafyOOU75MfEt0Vu_tPzy18c58w",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/api/doctores/681e085985d617eef80f9928",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"doctores",
+						"681e085985d617eef80f9928"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "doctores?&pagina=1&limite=2",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvSWQiOiI2ODFkZWYyOGIwNmI2YjMyNDRmMjI0ZjQiLCJlbWFpbCI6ImxvcC5tYXJpYWV1Z2VuaWFAZ21haWwuY29tIiwicm9sIjoiYWRtaW4iLCJpYXQiOjE3NDY3OTIzNTIsImV4cCI6MTc0OTM4NDM1Mn0.bjDCFWhQn_1uYvOPPafyOOU75MfEt0Vu_tPzy18c58w",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/api/doctores?&pagina=1&limite=2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"doctores"
+					],
+					"query": [
+						{
+							"key": null,
+							"value": null
+						},
+						{
+							"key": "pagina",
+							"value": "1"
+						},
+						{
+							"key": "limite",
+							"value": "2"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "doctores?&pagina=2&limite=1&especialidad=pe",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvSWQiOiI2ODFkZWYyOGIwNmI2YjMyNDRmMjI0ZjQiLCJlbWFpbCI6ImxvcC5tYXJpYWV1Z2VuaWFAZ21haWwuY29tIiwicm9sIjoiYWRtaW4iLCJpYXQiOjE3NDY3OTIzNTIsImV4cCI6MTc0OTM4NDM1Mn0.bjDCFWhQn_1uYvOPPafyOOU75MfEt0Vu_tPzy18c58w",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/api/doctores?&pagina=2&limite=1&especialidad=pediatria",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"doctores"
+					],
+					"query": [
+						{
+							"key": null,
+							"value": null
+						},
+						{
+							"key": "pagina",
+							"value": "2"
+						},
+						{
+							"key": "limite",
+							"value": "1"
+						},
+						{
+							"key": "especialidad",
+							"value": "pediatria"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "doctores/:id",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvSWQiOiI2ODFkZWYyOGIwNmI2YjMyNDRmMjI0ZjQiLCJlbWFpbCI6ImxvcC5tYXJpYWV1Z2VuaWFAZ21haWwuY29tIiwicm9sIjoiYWRtaW4iLCJpYXQiOjE3NDY3OTIzNTIsImV4cCI6MTc0OTM4NDM1Mn0.bjDCFWhQn_1uYvOPPafyOOU75MfEt0Vu_tPzy18c58w",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"nombre\": \"Valentina Duarte\",\r\n  \"dni\": \"20000000\",\r\n  \"especialidad\": \"Pediatria\",\r\n  \"email\": \"valentinaduarte@test.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/doctores/681e07cb85d617eef80f991f",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"doctores",
+						"681e07cb85d617eef80f991f"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "doctores/id/inhabilitar",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvSWQiOiI2ODFkZWYyOGIwNmI2YjMyNDRmMjI0ZjQiLCJlbWFpbCI6ImxvcC5tYXJpYWV1Z2VuaWFAZ21haWwuY29tIiwicm9sIjoiYWRtaW4iLCJpYXQiOjE3NDY3OTIzNTIsImV4cCI6MTc0OTM4NDM1Mn0.bjDCFWhQn_1uYvOPPafyOOU75MfEt0Vu_tPzy18c58w",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/api/doctores/681e07cb85d617eef80f991f/inhabilitar",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"doctores",
+						"681e07cb85d617eef80f991f",
+						"inhabilitar"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "doctores/id/habilitar",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvSWQiOiI2ODFkZWYyOGIwNmI2YjMyNDRmMjI0ZjQiLCJlbWFpbCI6ImxvcC5tYXJpYWV1Z2VuaWFAZ21haWwuY29tIiwicm9sIjoiYWRtaW4iLCJpYXQiOjE3NDY3OTIzNTIsImV4cCI6MTc0OTM4NDM1Mn0.bjDCFWhQn_1uYvOPPafyOOU75MfEt0Vu_tPzy18c58w",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/api/doctores/681e07cb85d617eef80f991f/habilitar",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"doctores",
+						"681e07cb85d617eef80f991f",
+						"habilitar"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "turnos",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvSWQiOiI2ODFkZWYyOGIwNmI2YjMyNDRmMjI0ZjQiLCJlbWFpbCI6ImxvcC5tYXJpYWV1Z2VuaWFAZ21haWwuY29tIiwicm9sIjoiYWRtaW4iLCJpYXQiOjE3NDY3OTIzNTIsImV4cCI6MTc0OTM4NDM1Mn0.bjDCFWhQn_1uYvOPPafyOOU75MfEt0Vu_tPzy18c58w",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"pacienteId\": \"681e2581688798abf3ec38ed\",\r\n    \"doctorId\": \"681e085985d617eef80f9928\",\r\n    \"fechaHora\": \"2025-05-19T10:00:00\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/turnos",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"turnos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "turnos/:id",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvSWQiOiI2ODFkZWYyOGIwNmI2YjMyNDRmMjI0ZjQiLCJlbWFpbCI6ImxvcC5tYXJpYWV1Z2VuaWFAZ21haWwuY29tIiwicm9sIjoiYWRtaW4iLCJpYXQiOjE3NDY3OTIzNTIsImV4cCI6MTc0OTM4NDM1Mn0.bjDCFWhQn_1uYvOPPafyOOU75MfEt0Vu_tPzy18c58w",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/api/turnos/681e0cbe86a34302bb15bed8",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"turnos",
+						"681e0cbe86a34302bb15bed8"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "turnos?pacienteId=68",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvSWQiOiI2ODFkZWYyOGIwNmI2YjMyNDRmMjI0ZjQiLCJlbWFpbCI6ImxvcC5tYXJpYWV1Z2VuaWFAZ21haWwuY29tIiwicm9sIjoiYWRtaW4iLCJpYXQiOjE3NDY3OTIzNTIsImV4cCI6MTc0OTM4NDM1Mn0.bjDCFWhQn_1uYvOPPafyOOU75MfEt0Vu_tPzy18c58w",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/api/turnos?pagina=1&limite=2&pacienteId=681dfd4d2c73c2650b288966",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"turnos"
+					],
+					"query": [
+						{
+							"key": "pagina",
+							"value": "1"
+						},
+						{
+							"key": "limite",
+							"value": "2"
+						},
+						{
+							"key": "pacienteId",
+							"value": "681dfd4d2c73c2650b288966"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "turnos?doctorId=68",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvSWQiOiI2ODFkZWYyOGIwNmI2YjMyNDRmMjI0ZjQiLCJlbWFpbCI6ImxvcC5tYXJpYWV1Z2VuaWFAZ21haWwuY29tIiwicm9sIjoiYWRtaW4iLCJpYXQiOjE3NDY3OTIzNTIsImV4cCI6MTc0OTM4NDM1Mn0.bjDCFWhQn_1uYvOPPafyOOU75MfEt0Vu_tPzy18c58w",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/api/turnos?pagina=1&limite=2&doctorId=681e085985d617eef80f9928",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"turnos"
+					],
+					"query": [
+						{
+							"key": "pagina",
+							"value": "1"
+						},
+						{
+							"key": "limite",
+							"value": "2"
+						},
+						{
+							"key": "doctorId",
+							"value": "681e085985d617eef80f9928"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "turnos/:id",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvSWQiOiI2ODFkZWYyOGIwNmI2YjMyNDRmMjI0ZjQiLCJlbWFpbCI6ImxvcC5tYXJpYWV1Z2VuaWFAZ21haWwuY29tIiwicm9sIjoiYWRtaW4iLCJpYXQiOjE3NDY3OTIzNTIsImV4cCI6MTc0OTM4NDM1Mn0.bjDCFWhQn_1uYvOPPafyOOU75MfEt0Vu_tPzy18c58w",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"estado\":\"cancelado\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/turnos/681ce89e11382d6fc9e1a6bc",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"turnos",
+						"681ce89e11382d6fc9e1a6bc"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "id",
+			"value": "1"
+		},
+		{
+			"key": "base_url",
+			"value": "https://postman-rest-api-learner.glitch.me/"
+		}
+	]
+}
