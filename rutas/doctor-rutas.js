@@ -45,14 +45,16 @@ router.patch(
             .isEmpty(),
         check('email')
             .normalizeEmail({ gmail_remove_dots: false }) 
-            .isEmail(),
-        check('activo')
-            .optional()
-            .isBoolean()
+            .isEmail()
     ],
     verificarRol(['admin', 'recepcion']), 
     doctorControlador.actualizarDoctor
 );
+
+
+router.patch('/:id/inhabilitar', verificarRol(['admin', 'recepcion']), doctorControlador.inhabilitarDoctor);
+
+router.patch('/:id/habilitar', verificarRol(['admin', 'recepcion']), doctorControlador.habilitarDoctor );
 
 module.exports = router;
 
